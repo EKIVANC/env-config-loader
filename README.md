@@ -1,2 +1,8 @@
 # env-config-loader
-simple environment variables loader in Go
+Simple environment variables loader in Go
+
+## Install
+
+```shell
+go get github.com/ekivanc/env-config-loader
+```
