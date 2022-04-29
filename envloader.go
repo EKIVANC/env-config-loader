@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+const commentPrefix = "#"
+
 func LoadEnvVariables(path string) {
 	file, err := os.Open(path)
 	if err != nil {
@@ -19,6 +21,14 @@ func LoadEnvVariables(path string) {
 	for scanner.Scan() {
 		currBytes := scanner.Bytes()
 		currText := string(currBytes)
+		if len(currText) == 0 {
+			// skip empty lines
+			continue
+		}
+		if strings.HasPrefix(currText, commentPrefix) {
+			// skip comment lines
+			continue
+		}
 		temp := strings.Split(currText, "=")
 		if len(temp) != 2 {
 			fmt.Fprintf(os.Stderr, "misconfigured env variable, pls check app.config file")
