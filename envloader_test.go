@@ -31,3 +31,11 @@ func TestBlankLines(t *testing.T) {
 		t.Errorf("The parameter %s not found in env variables", testEnvParam)
 	}
 }
+
+func TestTrimmingWhiteSpaces(t *testing.T) {
+	LoadEnvVariables("./configs/app_test.config")
+	val := os.Getenv("TEST_PARAM_4")
+	if val != "TEST_VALUE_4" {
+		t.Errorf("Trimming feature failed for env variable or its value")
+	}
+}
