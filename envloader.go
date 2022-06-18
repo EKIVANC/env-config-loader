@@ -30,13 +30,10 @@ func LoadEnvVariables(path string) {
 			// skip comment lines
 			continue
 		}
-		temp := strings.Split(currText, "=")
-		if len(temp) != 2 {
-			fmt.Fprintf(os.Stderr, "misconfigured env variable, pls check %s file , line: %s", path, currText)
-			os.Exit(1)
-		}
-		key := strings.TrimSpace(temp[0])
-		value := strings.TrimSpace(temp[1])
+		idxEqualSign := strings.Index(currText, "=")
+		key := strings.TrimSpace(currText[:idxEqualSign])
+		value := strings.TrimSpace(currText[idxEqualSign+1:])
+
 		if len(key) == 0 || len(value) == 0 {
 			fmt.Fprintf(os.Stderr, "misconfigured env variable, pls check %s file for variable %s %s ", path, key, value)
 			os.Exit(1)

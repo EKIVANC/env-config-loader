@@ -39,3 +39,19 @@ func TestTrimmingWhiteSpaces(t *testing.T) {
 		t.Errorf("Trimming feature failed for env variable or its value")
 	}
 }
+
+func TestMultipleEqualSign(t *testing.T) {
+	LoadEnvVariables("./configs/app_test.config")
+	val := os.Getenv("TEST_PARAM_5")
+	if val != "A=B" {
+		t.Errorf("Multiple usage of equal sign failed")
+	}
+}
+
+func TestMultipleSignsLongerValue(t *testing.T) {
+	LoadEnvVariables("./configs/app_test.config")
+	val := os.Getenv("TEST_PARAM_6")
+	if val != "mongodb+srv://blabla!jkdjdk:P@@@@@@=@@@bla.mongodb.net/?retryWrites=true&w=majority" {
+		t.Errorf("Test Failed for multiple signs with long value")
+	}
+}
